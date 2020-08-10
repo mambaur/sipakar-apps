@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Register Account',
+              'Registrasi Akun',
               style: TextStyle(color: Color.fromRGBO(38, 81, 158, 1)),
             ),
             backgroundColor: Colors.transparent,
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       Container(
           margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Text(
-            "*Please insert your data",
+            "Masukkan data anda dengan benar",
             style: TextStyle(color: Colors.grey),
           )),
       Container(
@@ -151,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                           decoration: InputDecoration(
-                              hintText: "Your Name",
+                              hintText: "Nama",
                               hintStyle: TextStyle(color: Colors.grey),
                               border: InputBorder.none),
                         ),
@@ -186,7 +186,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             }
                           },
                           decoration: InputDecoration(
-                              hintText: "Address",
+                              hintText: "Alamat",
                               hintStyle: TextStyle(color: Colors.grey),
                               border: InputBorder.none),
                         ),
@@ -235,7 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                            hintText: "Password Confirmation",
+                            hintText: "Konfirmasi",
                             hintStyle: TextStyle(color: Colors.grey),
                             border: InputBorder.none),
                       ),
@@ -250,7 +250,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     decoration: BoxDecoration(
                       color: Colors.lightBlue[900],
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                     child: Material(
                       color: Colors.transparent,
@@ -259,7 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           check();
                         },
                         splashColor: Colors.lightBlue,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(25),
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: 40, vertical: 15),

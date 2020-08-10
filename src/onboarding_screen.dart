@@ -98,12 +98,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               )
                             ),
                             Text(
-                              'Connect People around the world', 
+                              'Selamat Datang di Sipakar', 
                               style: TextStyle(color: Colors.white,fontSize: 30.0),
                             ),
                             SizedBox(height: 15.0,),
                             Text(
-                              'Lorem Ipsum Dolor Ijk jouman olang adiuj djjiiio manuhasa jdioos ubunaag',
+                              'Sistem Pakar identifikasi penyakit tanaman tembaku kasturi voor-ooggt.',
                               style: TextStyle(color: Colors.white)
                             )
                           ],
@@ -123,12 +123,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               )
                             ),
                             Text(
-                              'Imagine People in The world', 
+                              'Tembakau anda terserang penyakit?', 
                               style: TextStyle(color: Colors.white,fontSize: 30.0),
                             ),
                             SizedBox(height: 15.0,),
                             Text(
-                              'Lorem Ipsum Dolor Ijk jouman olang adiuj djjiiio manuhasa jdioos ubunaag',
+                              'Kenali penyakit tanaman tembakau, agar cepat melakukan penanganan.',
                               style: TextStyle(color: Colors.white)
                             )
                           ],
@@ -148,12 +148,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               )
                             ),
                             Text(
-                              'Play your turn', 
+                              'Tunggu apa lagi?', 
                               style: TextStyle(color: Colors.white,fontSize: 30.0),
                             ),
                             SizedBox(height: 15.0,),
                             Text(
-                              'Lorem Ipsum Dolor Ijk jouman olang adiuj djjiiio manuhasa jdioos ubunaag',
+                              'Yuk Mulai identifikasi penyakit tanaman tembakau sekarang juga.',
                               style: TextStyle(color: Colors.white)
                             )
                           ],

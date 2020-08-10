@@ -27,21 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.blue[900],
-                Colors.blue[400],
-                Colors.blue[400],
-              ],
-            ),
-          ),
           child: BlocBuilder<DiseaseBloc, DiseaseState>(
             bloc: _diseaseBloc,
             builder: (context, state) {
@@ -120,10 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Scaffold _detailDisease(DiseaseById state) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           title: Text(
-            'Detail Disease',
-            style: TextStyle(color: Colors.grey, fontSize: 20),
+            state.data.namaPenyakit,
+            style: TextStyle(
+              color: Colors.grey[700],
+            ),
           ),
           leading: GestureDetector(
             onTap: () {
@@ -131,13 +123,11 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: Container(
                 child: Icon(
-              Icons.chevron_left,
-              size: 40,
-              color: Colors.grey[300],
+              Icons.arrow_back,
+              // size: 20,
+              color: Colors.grey[700],
             )),
           ),
-          elevation: 0,
-          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -154,23 +144,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 300,
                           color: Colors.grey[200],
                           child: Image.network(
-                            "http://192.168.43.206/sipakar/${state.data.gambar}",
+                            "http://192.168.43.206/skripsi/assets/images/${state.data.gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
                           alignment: Alignment.bottomLeft,
-                          padding: EdgeInsets.all(10),
                           height: 300,
                           child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
+                              width: double.infinity,
+                              color: Colors.white.withOpacity(0.5),
                               padding: EdgeInsets.all(10),
                               child: Text(
                                 state.data.namaPenyakit,
                                 style: TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.w600),
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
                               )),
                         )
                       ],
@@ -204,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     borderRadius: BorderRadius.circular(10)),
                                 padding: EdgeInsets.all(5),
                                 child: Text(
-                                  'Tobacco Disease',
+                                  'Penyakit Tanaman tembakau',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
@@ -232,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.chevron_left, color: Colors.grey),
-                        Text("Back")
+                        Text("Kembali")
                       ]),
                 ),
               ),
@@ -244,333 +234,297 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 
-  Container _shimmerEffect(BuildContext context) {
+  _shimmerEffect(BuildContext context) {
     return Container(
-      color: Colors.grey[200],
-      height: MediaQuery.of(context).size.height,
-      width: double.infinity,
       child: Shimmer.fromColors(
         highlightColor: Colors.grey[100],
         baseColor: Colors.grey[300],
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(children: <Widget>[
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              flex: 2,
+              child: Container(
+                color: Colors.grey,
+              ),
+            ),
+            Flexible(
+              flex: 8,
+              child: Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    color: Colors.grey),
+              ),
+            ),
+            Flexible(
+              flex: 4,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        height: 30,
-                        width: 190,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                      SizedBox(height: 5),
-                      Container(
-                        height: 20,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10)),
-                      ),
-                    ],
+                  SizedBox(
+                    width: 10,
                   ),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.account_circle,
-                        size: 55,
-                      ),
-                      Icon(
-                        Icons.exit_to_app,
-                        size: 55,
-                      )
-                    ],
-                  )
+                  Flexible(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey),
+                      )),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Flexible(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey),
+                      )),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Flexible(
+                      flex: 1,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey),
+                      )),
+                  SizedBox(
+                    width: 10,
+                  ),
                 ],
               ),
             ),
-            Container(
-              height: 30,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(10)),
-              margin: EdgeInsets.symmetric(horizontal: 15),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(20)),
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(children: <Widget>[
-                  Container(
-                    height: 120,
-                    margin: EdgeInsets.all(10),
-                  ),
-                ]),
+            Flexible(
+              flex: 9,
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey),
               ),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  )),
-            )
-          ]),
+          ],
         ),
       ),
     );
   }
 
-  SingleChildScrollView _homeView(BuildContext context, DiseaseLoaded state) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _headerApp(context),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('List disease tobacco',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,)),
-                Icon(
-                  Icons.arrow_forward,
-                  color: Colors.white,
-                  size: 20,
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            child: Container(
-              height: 110,
-              alignment: Alignment.topCenter,
-              child: ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal:10, vertical:1),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: state.listDisease.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                        child: _listDiseaseHome(
-                            state.listDisease[index].gambar,
-                            state.listDisease[index].namaPenyakit,
-                            state.listDisease[index].idpenyakit));
-                  }),
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            padding: EdgeInsets.all(10),
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                )),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 20,
+  Future<void> refresh() async {
+    _diseaseBloc.add(GetListDisease());
+  }
+
+  _homeView(BuildContext context, DiseaseLoaded state) {
+    return Stack(
+      children: <Widget>[
+        RefreshIndicator(
+          onRefresh: () {
+            return refresh();
+          },
+          child: ListView(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 80),
+                child: Image(
+                  image: AssetImage('assets/homeflat.png'),
+                  width: 300.0,
                 ),
-                Row(
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Card(
-                      elevation: 3,
-                      child: Container(
-                        width: 80,
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add_alarm,
-                              size: 40,
-                            ),
-                            Text(
-                              "Sistem pakar adalah sistem",
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.grey,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
+                    IconCard(text: 'Masukkan gejala', icon: Icons.input),
+                    IconCard(text: 'Identifikasi', icon: Icons.replay),
+                    IconCard(text: 'Hasil Identifikasi', icon: Icons.check_box),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top: 15, left: 15),
+                    child: Image(
+                      image: AssetImage('assets/plant.png'),
+                      width: 100,
                     ),
-                    Card(
-                      elevation: 3,
-                      child: Container(
-                        width: 80,
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.add_shopping_cart,
-                              size: 40,
-                            ),
-                            Text("Sistem pakar adalah sistem",
-                                style:
-                                    TextStyle(fontSize: 10, color: Colors.grey),
-                                textAlign: TextAlign.center),
-                          ],
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 25,
                         ),
-                      ),
+                        Text('Apa itu SiPakar?',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.grey[700],
+                                fontWeight: FontWeight.w600)),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('SiPakar adalah sistem pakar tanaman',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            )),
+                        Text('tembakau identifikasi penyakit ',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            )),
+                        Text('tanaman tembakau',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            )),
+                      ],
                     ),
-                    Card(
-                      elevation: 3,
-                      child: Container(
-                        width: 80,
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          children: <Widget>[
-                            Icon(
-                              Icons.adjust,
-                              size: 40,
-                            ),
-                            Text("Sistem pakar adalah sistem",
-                                style:
-                                    TextStyle(fontSize: 10, color: Colors.grey),
-                                textAlign: TextAlign.center),
-                          ],
-                        ),
-                      ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Daftar penyakit tanaman tembakau',
+                        style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600)),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: Colors.grey[300],
+                      size: 15,
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 180,
+                margin: EdgeInsets.only(top: 5, left: 10, right: 10),
+                // height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 5,
+                          color: Colors.black.withOpacity(0.2),
+                          offset: Offset(0, 2))
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      height: 165,
+                      alignment: Alignment.topCenter,
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.listDisease.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                child: _listDiseaseHome(
+                                    state.listDisease[index].gambar,
+                                    state.listDisease[index].namaPenyakit,
+                                    state.listDisease[index].idpenyakit));
+                          }),
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Card(
-                  elevation: 3,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("What is Sipakar?",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontStyle: FontStyle.italic,
-                            )),
-                        Text(
-                            "Sistem pakar adalah sistem yang mampu Lorem ipusm dolor love memorandum ndose pakar adalah sistem yang mampu Lorem ipusm dolor love memorandum ndose Lorem ipusm dolor love memorandum ndose pakar adalah",
-                            style: TextStyle(fontSize: 10, color: Colors.grey)),
-                      ],
-                    ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                height: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40)),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    colors: [
+                      Colors.blue[800],
+                      Colors.blue[600],
+                      Colors.blue[400],
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40)),
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      colors: [
-                        Colors.blue[800],
-                        Colors.blue[600],
-                        Colors.blue[400],
-                      ],
-                    ),
-                  ),
-                  child: Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        Future.delayed(Duration(seconds: 3), () {
-                          print('ok');
-                        });
-
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                              builder: (context) => StartScreen()),
-                        );
-                      },
-                      splashColor: Colors.blue[900],
-                      borderRadius: BorderRadius.circular(40),
-                      child: Center(
-                        child: Text(
-                          'Get Started',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 30),
-                        ),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => StartScreen()),
+                      );
+                    },
+                    splashColor: Colors.blue[900],
+                    borderRadius: BorderRadius.circular(40),
+                    child: Center(
+                      child: Text(
+                        'Mulai Identifikasi',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 25),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("Sipakar v.1",
-                    style: TextStyle(
-                        fontStyle: FontStyle.italic,
-                        fontSize: 13,
-                        color: Colors.grey))
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+              SizedBox(
+                height: 20,
+              )
+            ],
+          ),
+        ),
+        _headerApp(context),
+      ],
     );
   }
 
   _headerApp(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+        BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            offset: Offset(0, 2),
+            blurRadius: 3)
+      ]),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.web,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      Text(
-                        'SiPakar',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Tobbaco plant disease',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 13,
-                        color: Colors.blue[100]),
-                  ),
-                ],
+              Text(
+                'SiPakar',
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.blue[800]),
               ),
               Container(
                 child: Row(
@@ -578,8 +532,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       child: Icon(
                         Icons.account_circle,
-                        size: 50.0,
-                        color: Colors.white,
+                        size: 30.0,
+                        color: Colors.grey[300],
                       ),
                     ),
                     Material(
@@ -587,8 +541,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: InkWell(
                         onTap: () {
                           ConfirmAlertBox(
-                              title: "Logout",
-                              infoMessage: "Are you sure want to logout?",
+                              title: "Keluar",
+                              infoMessage: "Apakah anda yakin ingin keluar?",
+                              buttonColorForNo: Colors.grey[200],
+                              buttonTextColorForNo: Colors.grey,
+                              buttonTextForYes: "Ya, keluar",
+                              buttonTextForNo: "Batal",
                               context: context,
                               onPressedYes: () async {
                                 await _authCache.logout(context);
@@ -599,7 +557,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.all(5),
                           child: Icon(
                             Icons.exit_to_app,
-                            color: Colors.white,
+                            color: Colors.grey[300],
                           ),
                         ),
                       ),
@@ -619,30 +577,63 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         _diseaseBloc.add(GetDiseaseById(idpenyakit: idpenyakit));
       },
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        elevation: 5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                height: 80,
-                width: 90,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Container(
+                height: 135,
+                width: 125,
                 child: Image.network(
-                  'http://192.168.43.206/sipakar/$src',
+                  'http://192.168.43.206/skripsi/assets/images/$src',
                   fit: BoxFit.cover,
                 )),
-            Container(
-              width: 90,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 3),
-              child: Column(
-                children: <Widget>[
-                  Text(text,
-                      style: TextStyle(color: Colors.black, fontSize: 10),
-                      textAlign: TextAlign.center),
-                ],
+          ),
+          SizedBox(
+            height: 2,
+          ),
+          Center(
+            child: Text(text,
+                style: TextStyle(color: Colors.grey[700], fontSize: 12),
+                textAlign: TextAlign.center),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class IconCard extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  const IconCard({
+    Key key,
+    this.text,
+    this.icon,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      child: Container(
+        width: 80,
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: <Widget>[
+            Icon(icon, size: 40, color: Colors.grey[800]),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.grey[700],
               ),
-            )
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),

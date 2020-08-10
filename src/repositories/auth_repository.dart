@@ -6,7 +6,7 @@ class AuthRepository {
   Future<AuthModel> postAuth(AuthModel authData) async{
     AuthCache _authcache = AuthCache();
     try {
-      http.Response response = await http.post('http://192.168.43.206/sipakar/api/auth', body:authData.toJson()
+      http.Response response = await http.post('http://192.168.43.206/skripsi/api/auth', body:authData.toJson()
       );
       var authResponse = json.decode(response.body);
       AuthModel auth = AuthModel.fromJson(authResponse);
@@ -19,7 +19,7 @@ class AuthRepository {
   }
   Future postAuthRegister(AuthRegister authData) async{
     try {
-      http.Response response = await http.post('http://192.168.43.206/sipakar/api/auth/register', body:authData.toJson()
+      http.Response response = await http.post('http://192.168.43.206/skripsi/api/auth/register', body:authData.toJson()
       );
       var authResponse = json.decode(response.body);
       // print(authResponse);

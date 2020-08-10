@@ -9,3 +9,8 @@ class GetIndicationById extends IndicationEvent{
   final String idgejala;
   GetIndicationById({this.idgejala});
 }
+
+class GetIdentificationResult extends GetIndication{
+  final IdentificationModel identificationModel;
+  GetIdentificationResult({this.identificationModel});
+}

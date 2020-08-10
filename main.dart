@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sipakar_apps/src/blocs/account_bloc/account_bloc.dart';
 import 'package:sipakar_apps/src/blocs/auth_bloc/auth_bloc.dart';
 import 'package:sipakar_apps/src/blocs/disease_bloc/disease_bloc.dart';
+import 'package:sipakar_apps/src/blocs/identification_bloc/identification_bloc.dart';
 import 'package:sipakar_apps/src/blocs/indication_bloc/indication_bloc.dart';
 import 'package:sipakar_apps/src/onboarding_screen.dart';
 import 'package:sipakar_apps/src/views/auth/login_screen.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<IndicationBloc>(
           create: (BuildContext context) => IndicationBloc(),
+        ),
+        BlocProvider<IdentificationBloc>(
+          create: (BuildContext context) => IdentificationBloc(),
         ),
       ],
       child: MaterialApp(

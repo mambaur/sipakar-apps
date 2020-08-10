@@ -59,20 +59,20 @@ class _SipakarAppsState extends State<SipakarApps> {
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
+            icon: Icon(Icons.dashboard, size: 18,),
+            title: Text('Beranda', style: TextStyle(fontSize: 12),),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bug_report),
-            title: Text('Disease'),
+            icon: Icon(Icons.bug_report, size: 20,),
+            title: Text('Gejala', style: TextStyle(fontSize: 12),),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.spa),
-            title: Text('Tobacco'),
+            icon: Icon(Icons.spa, size: 18,),
+            title: Text('Tembakau', style: TextStyle(fontSize: 12),),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.perm_identity),
-            title: Text('Account'),
+            icon: Icon(Icons.perm_identity, size: 18,),
+            title: Text('Akun', style: TextStyle(fontSize: 12),),
           ),
         ],
         currentIndex: _selectedIndex,

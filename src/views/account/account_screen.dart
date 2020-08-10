@@ -115,7 +115,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
-                            "Your Account",
+                            "Akun Anda",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -125,7 +125,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 15),
                           child: Text(
-                            "Information",
+                            "Pengaturan akun",
                             style: TextStyle(color: Colors.white),
                           ),
                         )
@@ -142,7 +142,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           }
                           if (state is EditView) {
                             return _buttonEdit(
-                                "Back", "backEdit", Icons.arrow_back);
+                                "Kembali", "backEdit", Icons.arrow_back);
                           }
                           return _buttonEdit("Edit", "changeEdit", Icons.edit);
                         },
@@ -213,14 +213,14 @@ class _AccountScreenState extends State<AccountScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Edit Your Data",
+                    "Edit data anda",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "You can change your data here",
+                    "Kamu dapat mengubah datamu disini",
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -244,7 +244,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         initialValue: state.email,
                         validator: (e) {
                           if (e.isEmpty) {
-                            return "*Please insert your email";
+                            return "*Email tidak boleh kosong";
                           }
                         },
                         decoration: InputDecoration(
@@ -266,13 +266,13 @@ class _AccountScreenState extends State<AccountScreen> {
                         initialValue: state.name,
                         validator: (e) {
                           if (e.isEmpty) {
-                            return "*Please insert your name";
+                            return "*Nama tidak boleh kosong";
                           }
                         },
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
                                 icon: Icon(Icons.edit), onPressed: null),
-                            hintText: "Your Name",
+                            hintText: "Nama",
                             hintStyle: TextStyle(color: Colors.grey),
                             border: InputBorder.none),
                       ),
@@ -284,13 +284,13 @@ class _AccountScreenState extends State<AccountScreen> {
                         initialValue: state.address,
                         validator: (e) {
                           if (e.isEmpty) {
-                            return "*Please insert your address";
+                            return "*Alamat tidak boleh kosong";
                           }
                         },
                         decoration: InputDecoration(
                             suffixIcon: IconButton(
                                 icon: Icon(Icons.edit), onPressed: null),
-                            hintText: "Address",
+                            hintText: "Alamat",
                             hintStyle: TextStyle(color: Colors.grey),
                             border: InputBorder.none),
                       ),
@@ -321,14 +321,14 @@ class _AccountScreenState extends State<AccountScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Change Password",
+                    "Ubah Password",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "You can change your password here",
+                    "Kamu dapat mengubah password disini",
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -350,14 +350,14 @@ class _AccountScreenState extends State<AccountScreen> {
                       onChanged: (e) => oldPassword = e,
                       validator: (e) {
                         if (e.isEmpty) {
-                          return "*Please insert your old password";
+                          return "*Password lama tidak boleh kosong";
                         }
                         if (e != state.password) {
-                          return "*Your old password wrong";
+                          return "*Password lama salah";
                         }
                       },
                       decoration: InputDecoration(
-                          hintText: "Old password",
+                          hintText: "Password lama",
                           hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none),
                     ),
@@ -372,14 +372,14 @@ class _AccountScreenState extends State<AccountScreen> {
                       onChanged: (e) => newPassword = e,
                       validator: (e) {
                         if (e.isEmpty) {
-                          return "*Please insert new password";
+                          return "*Password baru tidak boleh kosong";
                         }
                         if (e == oldPassword) {
-                          return "*New password must different with old password";
+                          return "*Password lama harus berbeda dengan password baru";
                         }
                       },
                       decoration: InputDecoration(
-                          hintText: "New password",
+                          hintText: "Password baru",
                           hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none),
                     ),
@@ -391,13 +391,13 @@ class _AccountScreenState extends State<AccountScreen> {
                       onChanged: (e) => passwordConfirmation = e,
                       validator: (e) {
                         if (e.isEmpty) {
-                          return "*Please insert password confirmation";
+                          return "*Konfirmasi password tidak boleh kosong";
                         } else if (newPassword != e) {
-                          return "*Password confirmation doesn't match";
+                          return "*Konfirmasi password tidak sama";
                         }
                       },
                       decoration: InputDecoration(
-                          hintText: "Password Confirmation",
+                          hintText: "Konfirmasi password",
                           hintStyle: TextStyle(color: Colors.grey),
                           border: InputBorder.none),
                     ),
@@ -414,7 +414,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 checkFormPassword();
               },
               child: Text(
-                'Change Password',
+                'Ubah Password',
                 style: TextStyle(color: Colors.white),
               ),
               color: Colors.blue[300],
@@ -502,7 +502,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'Name ',
+                      'Nama',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
@@ -513,6 +513,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
             )),
+        
         Card(
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             child: InkWell(
@@ -524,32 +525,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      'No Telp ',
-                      style: TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Flexible(
-                      child: Text('085465485659',
-                          style: TextStyle(color: Colors.grey)),
-                    ),
-                  ],
-                ),
-              ),
-            )),
-        Card(
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            child: InkWell(
-              splashColor: Colors.blue.withAlpha(30),
-              onTap: () {},
-              child: Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(15),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      'Address ',
+                      'Alamat ',
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                     SizedBox(

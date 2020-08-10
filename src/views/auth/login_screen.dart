@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     height: 10,
                   ),
                   Text(
-                    "Welcome back",
+                    "Selamat datang!",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
@@ -185,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                                             }
                                           },
                                           decoration: InputDecoration(
-                                              hintText: "Email or Phone number",
+                                              hintText: "Email atau nomor telepon",
                                               hintStyle:
                                                   TextStyle(color: Colors.grey),
                                               border: InputBorder.none),
@@ -214,8 +214,8 @@ class _LoginPageState extends State<LoginPage> {
                                               color: Colors.grey,
                                               onPressed: showHide,
                                               icon: Icon(_secureText
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off),
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility),
                                             ),
                                           ),
                                         ),
@@ -223,10 +223,10 @@ class _LoginPageState extends State<LoginPage> {
                                     ],
                                   )),
                               SizedBox(height: 40),
-                              Text(
-                                "Forgot Password?",
-                                style: TextStyle(color: Colors.grey),
-                              ),
+                              // Text(
+                              //   "Forgot Password?",
+                              //   style: TextStyle(color: Colors.grey),
+                              // ),
                               SizedBox(height: 40),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -329,7 +329,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 18),
               child: Text(
-                "Register",
+                "Daftar",
                 style: TextStyle(color: Colors.blue),
               ),
             ),

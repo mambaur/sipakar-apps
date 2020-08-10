@@ -1,6 +1,8 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_awesome_alert_box/flutter_awesome_alert_box.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sipakar_apps/src/blocs/indication_bloc/indication_bloc.dart';
+import 'package:sipakar_apps/src/models/identification.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -8,32 +10,20 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
-  List _selecteCategorys = List();
   List<String> selectedItemValue = List<String>();
-  List<String> persen = ['0', '10', '20', '90','100'];
+  List<String> persen = ['0', '10', '20', '45', '55', '65', '90', '100'];
+  IndicationBloc _indicationBloc = IndicationBloc();
+  // IdentificationBloc _identificationBloc = IdentificationBloc();
 
-  Map<String, dynamic> _categories = {
-    "responseCode": "1",
-    "responseText": "List categories.",
-    "responseBody": [
-      {"category_id": "1", "category_name": "Daun berlubang"},
-      {"category_id": "2", "category_name": "Daun Menguning"},
-      {"category_id": "3", "category_name": "Akar tanaman patah"},
-      {"category_id": "4", "category_name": "Batang layu"},
-      {"category_id": "5", "category_name": "Daun layu sebagian"},
-      {"category_id": "6", "category_name": "Daun mendadak mati"},
-      {"category_id": "7", "category_name": "Tanaman seperti terbakar"},
-      {"category_id": "8", "category_name": "Akar muncul cairan"},
-    ],
-    "responseTotalResult":
-        8 // Total result is 3 here becasue we have 3 categories in responseBody.
-  };
   @override
   void initState() {
-    for (int i = 0; i < _categories['responseTotalResult']; i++) {
-                selectedItemValue.add("0");
-              }
-              print(selectedItemValue);
+    for (int i = 0; i < 17; i++) {
+      selectedItemValue.add("0");
+    }
+    print(selectedItemValue);
+    _indicationBloc = BlocProvider.of<IndicationBloc>(context);
+    _indicationBloc.add(GetIndication());
+
     super.initState();
   }
 
@@ -41,190 +31,315 @@ class _StartScreenState extends State<StartScreen> {
     if (selected == true) {
       selectedItemValue[index] = value;
       setState(() {
-        _selecteCategorys.add(categoryId);
-        // print(index);
-        // print(
-            // 'Masuk selected true Id $categoryId kondisi : ${_selecteCategorys.contains(categoryId)}');
-            // 'Dropdown Value ${index.toString()} isinya $value');
-            print(selectedItemValue);
+        print(selectedItemValue);
       });
     } else {
       selectedItemValue[index] = '0';
       setState(() {
-        _selecteCategorys.remove(categoryId);
-        // print(
-            // 'Masuk selected false Id $categoryId kondisi : ${_selecteCategorys.contains(categoryId)}');
-            // 'Dropdown Index ${index.toString()} isinya $value');
-            print(selectedItemValue);
+        print(selectedItemValue);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Flushbar(
-                title: "Hey Ninja",
-                message:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
-                duration: Duration(seconds: 2),
-              )..show(context);
-            },
-            child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                child: Icon(
-                  Icons.help_outline,
-                  color: Colors.white,
-                )),
-          )
-        ],
-        backgroundColor: Colors.blue[800],
-        title: Text('Choose Indication'),
-      ),
-      body: Stack(
-        children: <Widget>[
-          ListView.builder(
-            padding: EdgeInsets.only(bottom: 100),
-            itemCount: _categories['responseTotalResult'],
-            itemBuilder: (context, index) {
-              
-              
-              // print(selectedItemValue);
-              return ListTile(
-                title:
-                    Text(_categories['responseBody'][index]['category_name']),
-                subtitle: Text('This is energy'),
-                leading: Checkbox(
-                  value: selectedItemValue[index] == '0' ? false : true,
-                  // value: _selecteCategorys.contains(
-                  //     _categories['responseBody'][index]['category_id']),
-                  onChanged: (bool selected) {
-                    _onCategorySelected(
-                        selected,
-                        _categories['responseBody'][index]['category_id'],
-                        index,
-                        '90');
-                  },
-                ),
-                trailing: DropdownButton(
-                  value: selectedItemValue[index],
-                  // value: '0',
-                  items: persen.map((val) {
-                    return DropdownMenuItem(
-                      value: val,
-                      child: Text('%$val'),
-                    );
-                  }).toList(),
-                  onChanged: (String value) {
-                    selectedItemValue[index] = value;
-                    value == '0'
-                        ? _onCategorySelected(
-                            false,
-                            _categories['responseBody'][index]['category_id'],
-                            index,
-                            '0')
-                        : _onCategorySelected(
-                            true,
-                            _categories['responseBody'][index]['category_id'],
-                            index,
-                            value);
-
-                    setState(() {});
-                  },
-                ),
+    return BlocListener<IndicationBloc, IndicationState>(
+      bloc: _indicationBloc,
+      listener: (BuildContext context, state) {
+        if (state is IdentificationResultFalse) {
+          Flushbar(
+            title: "Mohon maaf",
+            message: state.message[0]['message'],
+            duration: Duration(seconds: 4),
+          )..show(context);
+          _indicationBloc.add(GetIndication());
+        }
+      },
+      child: Scaffold(
+        body: BlocBuilder<IndicationBloc, IndicationState>(
+            bloc: _indicationBloc,
+            builder: (context, state) {
+              if (state is IndicationWaiting) {
+                return Container(
+                    color: Colors.grey.withOpacity(0.5),
+                    child: Center(child: CircularProgressIndicator()));
+              }
+              if (state is IndicationGetAll) {
+                return _getlistIndication(context, state);
+              }
+              if (state is IdentificationResult) {
+                return _identificationResult(state);
+              }
+              return Center(
+                child: CircularProgressIndicator(),
               );
-            },
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Flexible(
-                    flex: 3,
-                    child: GestureDetector(
-                      onTap: () {
-                        ConfirmAlertBox(
-                          buttonColorForYes: Colors.grey[200],
-                          buttonColorForNo: Colors.grey[200],
-                              title: "All data input",
-                              infoMessage: '${selectedItemValue[0]}\n${selectedItemValue[1]}\n${selectedItemValue[2]}\n${selectedItemValue[3]}\n${selectedItemValue[4]}\n${selectedItemValue[5]}\n${selectedItemValue[6]}\n${selectedItemValue[7]}',
-                              context: context,
-                              onPressedYes: () {
-                                
-                              });
-                      // print(selectedItemValue);
-                      // print(selectedItemValue[2]);
-                        // for (var i = 0; i < _categories['responseTotalResult']; i++) {
-                        //   print(selectedItemValue[i]);
-                        // }
-                      },
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10),
-                        width: MediaQuery.of(context).size.width,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          color: Colors.blue[700],
-                          gradient: LinearGradient(
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight,
-                            colors: [
-                              Colors.blue[900],
-                              Colors.blue[400],
-                            ],
-                          ),
-                          borderRadius: BorderRadius.only(
-                              // topLeft: Radius.circular(60),
-                              topRight: Radius.circular(100)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+            }),
+      ),
+    );
+  }
+
+  Scaffold _getlistIndication(BuildContext context, IndicationGetAll state) {
+    return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Flushbar(
+                  title: "Hey Ninja",
+                  message:
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+                  duration: Duration(seconds: 2),
+                )..show(context);
+              },
+              child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  child: Icon(
+                    Icons.help_outline,
+                    color: Colors.white,
+                  )),
+            )
+          ],
+          backgroundColor: Colors.blue[800],
+          title: Text('Pilih Gejala'),
+        ),
+        body: Stack(
+          children: <Widget>[
+            ListView.builder(
+              padding: EdgeInsets.only(bottom: 100),
+              itemCount: state.data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(state.data[index].namaGejala),
+                  leading: Checkbox(
+                    value: selectedItemValue[index] == '0' ? false : true,
+                    onChanged: (bool selected) {
+                      _onCategorySelected(
+                          selected, state.data[index].idGejala, index, '90');
+                    },
+                  ),
+                  trailing: DropdownButton(
+                    value: selectedItemValue[index],
+                    // value: '0',
+                    items: persen.map((val) {
+                      return DropdownMenuItem(
+                        value: val,
+                        child: Text('$val%'),
+                      );
+                    }).toList(),
+                    onChanged: (String value) {
+                      selectedItemValue[index] = value;
+                      value == '0'
+                          ? _onCategorySelected(
+                              false, state.data[index].idGejala, index, '0')
+                          : _onCategorySelected(
+                              true, state.data[index].idGejala, index, value);
+
+                      setState(() {});
+                    },
+                  ),
+                );
+              },
+            ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.blue[700],
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          Colors.blue[900],
+                          Colors.blue[400],
+                        ],
+                      ),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {
+                          IdentificationModel identificationModel =
+                              new IdentificationModel(
+                            email: 'user',
+                            gejala1: selectedItemValue[0],
+                            gejala2: selectedItemValue[1],
+                            gejala3: selectedItemValue[2],
+                            gejala4: selectedItemValue[3],
+                            gejala5: selectedItemValue[4],
+                            gejala6: selectedItemValue[5],
+                            gejala7: selectedItemValue[6],
+                            gejala8: selectedItemValue[7],
+                            gejala9: selectedItemValue[8],
+                            gejala10: selectedItemValue[9],
+                            gejala11: selectedItemValue[10],
+                            gejala12: selectedItemValue[11],
+                            gejala13: selectedItemValue[12],
+                            gejala14: selectedItemValue[13],
+                            gejala15: selectedItemValue[14],
+                            gejala16: selectedItemValue[15],
+                            gejala17: selectedItemValue[16],
+                          );
+                          _indicationBloc.add(GetIdentificationResult(
+                              identificationModel: identificationModel));
+                        },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Start Identification",
+                              "Mulai Identifikasi",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 25,
                                   fontWeight: FontWeight.w600),
                             ),
-                            Row(
-                              children: <Widget>[
-                                Text("Found plant disease",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    )),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                )
-                              ],
+                            SizedBox(
+                              width: 5,
                             ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            )
                           ],
                         ),
                       ),
-                    )),
-                Flexible(flex: 1, child: Container())
-              ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+
+  Scaffold _identificationResult(IdentificationResult state) {
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Container(
+              height: 150,
+              width: double.infinity,
+              padding: EdgeInsets.only(left: 20),
+              alignment: Alignment.centerLeft,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+                color: Colors.blueAccent,
+              ),
+              child: Text('Hasil Identifikasi',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600))),
+          SafeArea(
+            child: Container(
+              padding: EdgeInsets.only(top: 75),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.all(5),
+                itemCount: state.result.length,
+                itemBuilder: (context, index) {
+                  if (state.result[index]['status'] == 1) {
+                    return Card(
+                      elevation: 3,
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      state.result[index]['penyakit'].toString(),
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                        'z = ${state.result[index]['nilai_z'].toString()}'),
+                                    Text(
+                                        'cf kombinasi = ${state.result[index]['hasil_kombinasi'].toString()}'),
+                                    Text(
+                                        'Persentase : ${state.result[index]['persentase'].toString()}%'),
+                                  ],
+                                ),
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(20)
+                                  ),
+                                  child: Text(
+                                    '${state.result[index]['persentase'].toString()}%',
+                                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 20),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Container(child: Text('Penanganan :'),),
+                            Container(child: Text('${state.result[index]['detail_penyakit']['penanganan']}'),)
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.bottomCenter,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () {
+                  _indicationBloc.add(GetIndication());
+                },
+                child: Container(
+                  width: 120,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin: EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blueAccent,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.arrow_back,
+                        size: 15,
+                        color: Colors.white,
+                      ),
+                      Text(' Kembali',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
+              ),
             ),
           )
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.blue[800],
-      //   onPressed: () {},
-      //   child: Icon(
-      //     Icons.help_outline,
-      //     color: Colors.white,
-      //     size: 40,
-      //   ),
-      // ),
     );
   }
 }

@@ -23,3 +23,24 @@ class IndicationError extends IndicationState {
   final String errorMessage;
   IndicationError({this.errorMessage});
 }
+
+//identification
+class IdentificationInitial extends IndicationState {}
+
+class IdentificationWaiting extends IndicationState {}
+
+
+class IdentificationResult extends IndicationState{
+  final List<dynamic> result;
+  IdentificationResult({this.result});
+}
+
+class IdentificationError extends IndicationState {
+  final String errorMessage;
+  IdentificationError({this.errorMessage});
+}
+
+class IdentificationResultFalse extends IndicationState{
+  final List<dynamic> message;
+  IdentificationResultFalse({this.message});
+}
