@@ -1,5 +1,5 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sipakar_apps/src/views/auth/login_screen.dart';
 
@@ -43,10 +43,11 @@ class AuthCache {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setInt("value", null);
     print('Anda berhasil logout');
-    Fluttertoast.showToast(
-      msg: "Anda berhasil logout",
-      timeInSecForIosWeb: 4,
-    );
+    Flushbar(
+                  message:
+                     "Anda berhasil logout",
+                  duration: Duration(seconds: 2),
+                ).show(context);
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
   }

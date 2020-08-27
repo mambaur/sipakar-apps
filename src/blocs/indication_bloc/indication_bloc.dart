@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sipakar_apps/src/models/identification.dart';
@@ -18,13 +17,13 @@ class IndicationBloc extends Bloc<IndicationEvent, IndicationState> {
   Stream<IndicationState> mapEventToState(
     IndicationEvent event,
   ) async* {
-    if (event is GetIndication){
+    if (event is GetIndication) {
       yield* _getListIndication();
     }
-    if (event is GetIndicationById){
+    if (event is GetIndicationById) {
       yield* _getIndicationById(event.idgejala);
     }
-    if (event is GetIdentificationResult){
+    if (event is GetIdentificationResult) {
       yield* _getIdentificationResult(event.identificationModel);
     }
   }
@@ -49,12 +48,14 @@ class IndicationBloc extends Bloc<IndicationEvent, IndicationState> {
       IndicationModel data = await _indicationRepository.getDataById(request);
       yield IndicationById(data: data);
     } catch (e) {
-      yield  IndicationError(errorMessage: e.toString());
+      yield IndicationError(errorMessage: e.toString());
     }
   }
 
-  Stream<IndicationState> _getIdentificationResult(IdentificationModel request) async* {
-    IdentificationRepository _identificationRepository = IdentificationRepository();
+  Stream<IndicationState> _getIdentificationResult(
+      IdentificationModel request) async* {
+    IdentificationRepository _identificationRepository =
+        IdentificationRepository();
 
     yield IndicationWaiting();
     try {
@@ -65,11 +66,11 @@ class IndicationBloc extends Bloc<IndicationEvent, IndicationState> {
       var gejala4 = data['hasil'][3]['status'];
       if (gejala1 == 0 && gejala2 == 0 && gejala3 == 0 && gejala4 == 0) {
         yield IdentificationResultFalse(message: data['hasil']);
-      }else{
+      } else {
         yield IdentificationResult(result: data['hasil']);
       }
     } catch (e) {
-      yield  IdentificationError(errorMessage: e.toString());
+      yield IdentificationError(errorMessage: e.toString());
     }
   }
 }

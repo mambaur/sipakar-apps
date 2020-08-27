@@ -1,8 +1,8 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sipakar_apps/src/blocs/auth_bloc/auth_bloc.dart';
 import 'package:sipakar_apps/src/models/auth-model.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sipakar_apps/src/sipakar-apps.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -54,27 +54,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (BuildContext context, state) {
           if (state is AuthRegisterSuccess) {
             if (state.value == 1) {
-              Fluttertoast.showToast(
-                msg: state.message,
-                timeInSecForIosWeb: 4,
-              );
+              Flushbar(
+                  message:
+                      state.message,
+                  duration: Duration(seconds: 2),
+                ).show(context);
               _authCache.savePref(state.value, state.email);
               setState(() {
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => SipakarApps()));
               });
             } else {
-              Fluttertoast.showToast(
-                msg: state.message,
-                timeInSecForIosWeb: 4,
-              );
+              Flushbar(
+                  message:
+                      state.message,
+                  duration: Duration(seconds: 2),
+                ).show(context);
             }
           }
           if (state is AuthError) {
-            Fluttertoast.showToast(
-              msg: state.errorMessage,
-              timeInSecForIosWeb: 4,
-            );
+            Flushbar(
+                  message:
+                      state.errorMessage,
+                  duration: Duration(seconds: 2),
+                ).show(context);
           }
         },
         child: Scaffold(

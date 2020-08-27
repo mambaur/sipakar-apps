@@ -11,7 +11,26 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   List<String> selectedItemValue = List<String>();
-  List<String> persen = ['0', '10', '20', '45', '55', '65', '90', '100'];
+  List<String> persen = [
+    '0',
+    '5',
+    '10',
+    '15',
+    '20',
+    '25',
+    '30',
+    '35',
+    '40',
+    '45',
+    '55',
+    '60',
+    '65',
+    '75',
+    '80',
+    '85',
+    '90',
+    '100'
+  ];
   IndicationBloc _indicationBloc = IndicationBloc();
   // IdentificationBloc _identificationBloc = IdentificationBloc();
 
@@ -87,11 +106,10 @@ class _StartScreenState extends State<StartScreen> {
             GestureDetector(
               onTap: () {
                 Flushbar(
-                  title: "Hey Ninja",
                   message:
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+                      "Pilih salah satu gejala lalu masukkan berat serangan gejala tersebut, Tekan mulai identifikasi untuk mengetahui persentase penyakit tanaman tembakau",
                   duration: Duration(seconds: 2),
-                )..show(context);
+                ).show(context);
               },
               child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 15),
@@ -241,7 +259,7 @@ class _StartScreenState extends State<StartScreen> {
                       fontWeight: FontWeight.w600))),
           SafeArea(
             child: Container(
-              padding: EdgeInsets.only(top: 75),
+              padding: EdgeInsets.only(top: 75, bottom: 70),
               margin: EdgeInsets.symmetric(horizontal: 20),
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -261,38 +279,58 @@ class _StartScreenState extends State<StartScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      state.result[index]['penyakit'].toString(),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Text(
-                                        'z = ${state.result[index]['nilai_z'].toString()}'),
-                                    Text(
-                                        'cf kombinasi = ${state.result[index]['hasil_kombinasi'].toString()}'),
-                                    Text(
-                                        'Persentase : ${state.result[index]['persentase'].toString()}%'),
-                                  ],
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(20)
+                                Flexible(
+                                  flex: 5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        state.result[index]['penyakit']
+                                                ['nama_penyakit']
+                                            .toString(),
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Text(
+                                          'hasil cf = ${state.result[index]['cf_hasil'].toString()}'),
+                                      Text(
+                                          'Persentase : ${state.result[index]['persentase'].toString()}'),
+                                    ],
                                   ),
-                                  child: Text(
-                                    '${state.result[index]['persentase'].toString()}%',
-                                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w600, fontSize: 20),
+                                ),
+                                Flexible(
+                                  flex: 3,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Text(
+                                      '${state.result[index]['persentase'].toString()}',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 20),
+                                    ),
                                   ),
                                 )
                               ],
                             ),
-                            Container(child: Text('Penanganan :'),),
-                            Container(child: Text('${state.result[index]['detail_penyakit']['penanganan']}'),)
+                            Divider(),
+                            Container(
+                                child: Text('Penanganan :',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                                margin: EdgeInsets.symmetric(vertical: 5)),
+                            Container(
+                              child:
+                                  Text('${state.result[index]['penanganan']}'),
+                            )
                           ],
                         ),
                       ),

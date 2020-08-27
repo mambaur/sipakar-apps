@@ -1,6 +1,6 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sipakar_apps/src/blocs/account_bloc/account_bloc.dart';
 import 'package:sipakar_apps/src/models/account.dart';
 
@@ -68,17 +68,19 @@ class _AccountScreenState extends State<AccountScreen> {
         bloc: _accountBloc,
         listener: (BuildContext context, state) {
           if (state is UpdateSuccess) {
-            Fluttertoast.showToast(
-              msg: state.message,
-              timeInSecForIosWeb: 4,
-            );
+            Flushbar(
+                  message:
+                     state.message,
+                  duration: Duration(seconds: 2),
+                ).show(context);
             getDataAccount();
           }
           if (state is ChangePasswordSuccess) {
-            Fluttertoast.showToast(
-              msg: state.message,
-              timeInSecForIosWeb: 4,
-            );
+            Flushbar(
+                  message:
+                     state.message,
+                  duration: Duration(seconds: 2),
+                ).show(context);
             getDataAccount();
           }
         },

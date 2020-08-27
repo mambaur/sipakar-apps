@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 300,
                           color: Colors.grey[200],
                           child: Image.network(
-                            "http://sipakartembakau.000webhostapp.com/assets/images/${state.data.gambar}",
+                            "http://192.168.43.206/skripsi/assets/images/${state.data.gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -204,6 +204,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 10,
                           ),
+                          Container(
+                            child: Text(state.data.keterangan),
+                          ),
+                          Divider(),
+                          Container(
+                              padding: EdgeInsets.symmetric(vertical: 5),
+                              child: Text('Penanganan',
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600))),
                           Container(
                             child: Text(state.data.penanganan),
                           ),
@@ -374,17 +385,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text('SiPakar adalah sistem pakar tanaman',
+                        Text('SiPakar adalah sistem pakar ',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
                             )),
-                        Text('tembakau identifikasi penyakit ',
+                        Text('tanaman tembakau identifikasi ',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
                             )),
-                        Text('tanaman tembakau',
+                        Text('penyakit tanaman tembakau',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -586,7 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 135,
                 width: 125,
                 child: Image.network(
-                  'http://sipakartembakau.000webhostapp.com/assets/images/$src',
+                  'http://192.168.43.206/skripsi/assets/images/$src',
                   fit: BoxFit.cover,
                 )),
           ),

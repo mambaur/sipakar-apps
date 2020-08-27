@@ -1,6 +1,6 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sipakar_apps/src/blocs/auth_bloc/auth_bloc.dart';
 import 'package:sipakar_apps/src/models/auth-model.dart';
 import 'package:sipakar_apps/src/sipakar-apps.dart';
@@ -65,19 +65,23 @@ class _LoginPageState extends State<LoginPage> {
               getPref();
               state.authSuccess.email == null &&
                       state.authSuccess.password == null
-                  ? Fluttertoast.showToast(
-                      msg: "Please check your username or password!",
-                      timeInSecForIosWeb: 4)
-                  : Fluttertoast.showToast(
-                      msg: "Welcome to Sipakar!",
-                      timeInSecForIosWeb: 4,
-                    );
+                  ? Flushbar(
+                  message:
+                      "Please check your username or password!",
+                  duration: Duration(seconds: 2),
+                ).show(context)
+                  :Flushbar(
+                  message:
+                      "Welcome to Sipakar!",
+                  duration: Duration(seconds: 2),
+                ).show(context); 
             }
             if (state is AuthError) {
-              Fluttertoast.showToast(
-                msg: state.errorMessage,
-                timeInSecForIosWeb: 4,
-              );
+              Flushbar(
+                  message:
+                      state.errorMessage,
+                  duration: Duration(seconds: 2),
+                ).show(context);
             }
           },
           child: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {

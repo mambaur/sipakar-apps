@@ -1,6 +1,6 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sipakar_apps/src/blocs/indication_bloc/indication_bloc.dart';
 
@@ -28,10 +28,10 @@ class _IndicationScreenState extends State<IndicationScreen> {
         bloc: _indicationBloc,
         listener: (context, state) {
           if (state is IndicationError) {
-            Fluttertoast.showToast(
-              msg: state.errorMessage,
-              timeInSecForIosWeb: 4,
-            );
+            Flushbar(
+              message: state.errorMessage,
+              duration: Duration(seconds: 2),
+            ).show(context);
           }
         },
         child: Container(
@@ -112,7 +112,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                           width: double.infinity,
                           color: Colors.grey[200],
                           child: Image.network(
-                            "http://sipakartembakau.000webhostapp.com/assets/images/${state.data.gambar}",
+                            "http://192.168.43.206/skripsi/assets/images/${state.data.gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -284,7 +284,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                           width: 100,
                           height: 100,
                           child: Image.network(
-                            "http://sipakartembakau.000webhostapp.com/assets/images/${state.data[index].gambar}",
+                            "http://192.168.43.206/skripsi/assets/images/${state.data[index].gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -327,7 +327,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                               color: Colors.grey[200],
                               height: 90,
                               child: Image.network(
-                                "http://sipakartembakau.000webhostapp.com/assets/images/${state.data[index].gambar}",
+                                "http://192.168.43.206/skripsi/assets/images/${state.data[index].gambar}",
                                 fit: BoxFit.cover,
                               ),
                             ),
