@@ -6,7 +6,7 @@ class IndicationRepository {
   Future<List<IndicationModel>> getIndication() async {
     try {
       http.Response response =
-          await http.get('http://192.168.43.206/skripsi/api/indication');
+          await http.get('https://sipakar.caraguna.com/api/indication');
       List listResponse = json.decode(response.body) as List;
       List<IndicationModel> listDisease =
           listResponse.map((f) => IndicationModel.fromJson(f)).toList();
@@ -19,7 +19,7 @@ class IndicationRepository {
   Future getDataById(String idgejala) async {
     try {
       http.Response response = await http.post(
-          'http://192.168.43.206/skripsi/api/indication/getById',
+          'https://sipakar.caraguna.com/api/indication/getById',
           body: {'idgejala': idgejala});
       var dataResponse = json.decode(response.body);
       IndicationModel data = IndicationModel.fromJson(dataResponse);

@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 300,
                           color: Colors.grey[200],
                           child: Image.network(
-                            "http://192.168.43.206/skripsi/assets/images/${state.data.gambar}",
+                            "https://sipakar.caraguna.com/assets/images/${state.data.gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -597,7 +597,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 135,
                 width: 125,
                 child: Image.network(
-                  'http://192.168.43.206/skripsi/assets/images/$src',
+                  'https://sipakar.caraguna.com/assets/images/$src',
                   fit: BoxFit.cover,
                 )),
           ),

@@ -112,7 +112,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                           width: double.infinity,
                           color: Colors.grey[200],
                           child: Image.network(
-                            "http://192.168.43.206/skripsi/assets/images/${state.data.gambar}",
+                            "https://sipakar.caraguna.com/assets/images/${state.data.gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -284,7 +284,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                           width: 100,
                           height: 100,
                           child: Image.network(
-                            "http://192.168.43.206/skripsi/assets/images/${state.data[index].gambar}",
+                            "https://sipakar.caraguna.com/assets/images/${state.data[index].gambar}",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -327,7 +327,7 @@ class _IndicationScreenState extends State<IndicationScreen> {
                               color: Colors.grey[200],
                               height: 90,
                               child: Image.network(
-                                "http://192.168.43.206/skripsi/assets/images/${state.data[index].gambar}",
+                                "https://sipakar.caraguna.com/assets/images/${state.data[index].gambar}",
                                 fit: BoxFit.cover,
                               ),
                             ),

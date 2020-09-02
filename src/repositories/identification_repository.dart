@@ -7,7 +7,7 @@ class IdentificationRepository {
     try {
       // http.Response response = await http.post('http://sipakartembakau.000webhostapp.com/api/identification/', body:identificationModel.toJson());
       http.Response response = await http.post(
-          'http://192.168.43.206/skripsi/api/identification/',
+          'https://sipakar.caraguna.com/api/identification/',
           body: identificationModel.toJson());
       var dataResponse = json.decode(response.body);
       // print(dataResponse);

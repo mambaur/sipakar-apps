@@ -7,7 +7,7 @@ class AuthRepository {
     AuthCache _authcache = AuthCache();
     try {
       http.Response response = await http.post(
-          'http://192.168.43.206/skripsi/api/auth',
+          'https://sipakar.caraguna.com/api/auth',
           body: authData.toJson());
       var authResponse = json.decode(response.body);
       AuthModel auth = AuthModel.fromJson(authResponse);
@@ -23,7 +23,7 @@ class AuthRepository {
   Future postAuthRegister(AuthRegister authData) async {
     try {
       http.Response response = await http.post(
-          'http://192.168.43.206/skripsi/api/auth/register',
+          'https://sipakar.caraguna.com/api/auth/register',
           body: authData.toJson());
       var authResponse = json.decode(response.body);
       // print(authResponse);
